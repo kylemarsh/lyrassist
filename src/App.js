@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import songs from "./data/songs.json"
 
@@ -7,189 +7,95 @@ const playlists = songs.map((song) => song.playlist).filter(uniquifyingFilter).s
 const artists = songs.map((song) => song.artist).filter(uniquifyingFilter).sort()
 //const data = {playlists: playlists, artists: artists, songs: songs} //TODO: combine duplicate nav components
 
-class App extends Component {
-	constructor(props) {
-		super(props)
+function App() {
+	const [view, setView] = useState("nav");
+	const [viewItem, setViewItem] = useState("");
 
-		this.state = {view: "nav", viewItem: ''}
+	const handleClick = (type, item) => {
+		setView(type)
+		setViewItem(item)
 	}
 
-	render() {
-		return (
-			<div className="App">
+	return (
+		<div className="App">
+			<h2 className="title" onClick={()=>handleClick("nav", "")}>Lyrassist</h2>
+			{
 				{
-					{
-						"nav": <Navigation handleClick={this.handleNavClick}/>,
-						"playlists": <Playlists playlists={playlists} handleBack={this.handleBackClick} handleClick={this.handlePlaylistClick}/>,
-						"artists": <Artists artists={artists} handleBack={this.handleBackClick} handleClick={this.handleArtistClick}/>,
-						"songs": <Songs songs={songs} handleBack={this.handleBackClick}/>,
-						"playlist": <Playlist name={this.state.viewItem} songs={songs}/>,
-						"artist": <Artist name={this.state.viewItem} songs={songs}/>,
-						"lyrics": <Lyrics name={this.state.viewItem} songs={songs}/>,
-					}[this.state.view]
-				}
-			</div>
-		);
-	}
-
-	handleNavClick = (event) => {
-		this.setState({
-			...this.state,
-			view: event.target.attributes.name.value,
-		})
-	}
-
-	handlePlaylistClick = (event) => {
-		this.setState({
-			...this.state,
-			view: "playlist",
-			viewItem: event.target.attributes.name.value,
-		})
-	}
-
-	handleArtistClick = (event) => {
-		this.setState({
-			...this.state,
-			view: "artist",
-			viewItem: event.target.attributes.name.value,
-		})
-	}
-
-	handleBackClick = (event) => {
-		this.setState({
-			...this.state,
-			view: "nav",
-		});
-	}
-
+					"nav": <Navigation handleClick={handleClick}/>,
+					"playlists": <RenderList listType="playlists" sublistType="playlist" items={playlists} handleBack={() => handleClick("nav", "")} handleClick={handleClick}/>,
+					"artists": <RenderList listType="artists" sublistType="artist" items={artists} handleBack={() => handleClick("nav", "")} handleClick={handleClick}/>,
+					"songs": <RenderList listType="songs" sublistType="lyrics" items={songs.map(song => song.title).sort()} handleBack={() => handleClick("nav", "")} handleClick={handleClick}/>,
+					"playlist": <SongList listType="playlist" name={viewItem} songs={songs}/>,
+					"artist": <SongList listType="artist" name={viewItem} songs={songs}/>,
+					"lyrics": <Lyrics name={viewItem} songs={songs}/>,
+				}[view]
+			}
+		</div>
+	);
 }
 
 
 const Navigation = props => {
 	return (
 		<div className="Navigation">
-			<div className="NavItem" name="playlists" onClick={props.handleClick}>Playlists</div>
-			<div className="NavItem" name="artists" onClick={props.handleClick}>Artists</div>
-			<div className="NavItem" name="songs" onClick={props.handleClick}>Songs</div>
+			<div className="NavItem" onClick={() => props.handleClick("playlists", "")}>Playlists</div>
+			<div className="NavItem" onClick={() => props.handleClick("artists", "")}>Artists</div>
+			<div className="NavItem" onClick={() => props.handleClick("songs", "")}>Songs</div>
 		</div>
 	);
 }
 
-const Playlists = props => {
+const RenderList = props => {
 	var data = ""
-	if (!Object.entries(props).length && props.constructor === Object) {
-		data = <div>No playlists defined</div>
+	if (!props.items || !props.items.length) {
+		data = <div>No {props.listType} defined</div>
 	} else {
-		const entries = playlists.map(name => <li className="nav-list-item" key={name} name={name} onClick={props.handleClick}>{name}</li>)
-		data = <div><ul>{entries}</ul></div>
-	}
-	return (
-		<div>
-			<div className="BackButton" name="nav" onClick={props.handleBack}>&lt; Playlists</div>
-			{data}
-		</div>
-	)
-}
-
-const Artists = props => {
-	var data = ""
-	if (!Object.entries(props).length && props.constructor === Object) {
-		return <div>No artists defined</div>
-	} else {
-		const entries = artists.map(name => <li className="nav-list-item" key={name} name={name} onClick={props.handleClick}>{name}</li>)
-		data = <div><ul>{entries}</ul></div>
-	}
-	return (
-		<div>
-			<div className="BackButton" name="nav" onClick={props.handleBack}>&lt; Artists</div>
-			{data}
-		</div>
-	)
-}
-
-const Playlist = props => {
-	var data = ""
-	if (!Object.entries(props).length && props.constructor === Object) {
-		data = <div>Playlist {props.name} is empty</div>
-	} else {
-		const entries = songs.filter(song => song.playlist === props.name).map(song => {
-			const lines = song.lyrics.map(line => <div className="songLine">{line}</div>)
-			return (
-			<div className="song-list-item"
-				key={song.title}
-				id={song.title}>
-					<h3>{song.title}</h3>
-					{lines}
-				</div>
-			)
-		})
-		data = <div>{entries}</div>
-	}
-	//TODO: Make this back button work
-	return (
-		<div>
-			<div className="BackButton" name="playlists" onClick={props.handleBack}>&lt; {props.name}</div>
-			{data}
-		</div>
-	)
-}
-
-const Artist = props => {
-	var data = ""
-	if (!Object.entries(props).length && props.constructor === Object) {
-		data = <div>No songs by {props.name}</div>
-	} else {
-		const entries = songs.filter(song => song.artist === props.name).map(song => {
-			const lines = song.lyrics.map(line => <div className="songLine">{line}</div>)
-			return (
-			<div className="song-list-item"
-				key={song.title}
-				id={song.title}>
-					<h3>{song.title}</h3>
-					{lines}
-				</div>
-			)
-		})
-		data = <div>{entries}</div>
-	}
-
-	//TODO: Make this back button work
-	return (
-		<div>
-			<div className="BackButton" name="playlists" onClick={props.handleBack}>&lt; {props.name}</div>
-			{data}
-		</div>
-	)
-}
-
-const Songs = props => {
-	var data = ""
-	if (!Object.entries(props).length && props.constructor === Object) {
-		return <div>No songs defined</div>
-	} else {
-		const entries = songs.sort((a, b) => a.title - b.title).map((song) => {
-			return (
+		const entries = props.items.map(name => (
 			<li className="nav-list-item"
-				key={song.title}
-				id={song.title}
-				onClick={props.handleClick}>{song.title}</li>
-			)
-		})
+				key={name}
+				name={name}
+				onClick={() => props.handleClick(props.sublistType, name)}>{name}</li>
+		))
 		data = <div><ul>{entries}</ul></div>
 	}
+	//TODO: glyph and capitalization via stylesheet see https://stackoverflow.com/questions/48387180/is-it-possible-to-capitalize-first-letter-of-text-string-in-react-native-how-to/58867901#58867901
 	return (
 		<div>
-			<div className="BackButton" name="nav" onClick={props.handleBack}>&lt; All Songs</div>
+			<h2 className="BackButton" onClick={props.handleBack}>&lt; {props.listType}</h2>
 			{data}
 		</div>
-	);
+	)
+}
+
+const SongList = props => {
+	var data = ""
+	if (!props.songs || !props.songs.length) {
+		data = <div>No songs for "{props.name}"</div>
+	} else {
+		const entries = props.songs.filter(song => song[props.listType] === props.name).map(song => {
+			const lines = song.lyrics.map((line, index) => <div className="songLine" key={index}>{line}</div>)
+			return (
+			<div className="song-list-item"
+				key={song.title}
+				id={song.title}>
+					<h3>{song.title}</h3>
+					{lines}
+				</div>
+			)
+		})
+		data = <div>{entries}</div>
+	}
+	//TODO: Make this back button work
+	return (
+		<div>
+			<h2 className="BackButton" onClick={props.handleBack}>&lt; {props.name}</h2>
+			{data}
+		</div>
+	)
 }
 
 const Lyrics = props => {
 	return <div>Unimplemented</div>
 }
-
-
-
 
 export default App
