@@ -78,6 +78,7 @@ function App() {
 					lyrics: (
 						<div className="one-song">
 							<h2 className="subtitle" onClick={() => handleClick('songs', '')}>
+								<i className="fas fa-caret-left">&nbsp;</i>
 								{viewItem}
 							</h2>
 							<Lyrics songs={songs} name={viewItem} renderTitle={false} />
@@ -131,6 +132,7 @@ const RenderList = (props) => {
 	return (
 		<div className="renderlist-container">
 			<h2 className="subtitle" onClick={props.handleBack}>
+				<i className="fas fa-caret-left">&nbsp;</i>
 				{props.listType}
 			</h2>
 			{data}
@@ -160,6 +162,7 @@ const SongList = (props) => {
 	return (
 		<div className="songlist-container">
 			<h2 className="subtitle" onClick={props.handleBack}>
+				<i className="fas fa-caret-left">&nbsp;</i>
 				{props.name}
 			</h2>
 			{data}
