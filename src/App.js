@@ -59,9 +59,21 @@ function App() {
 						/>
 					),
 					playlist: (
-						<SongList listType="playlist" name={viewItem} songs={songs} />
+						<SongList
+							listType="playlist"
+							name={viewItem}
+							songs={songs}
+							handleBack={() => handleClick('playlists', '')}
+						/>
 					),
-					artist: <SongList listType="artist" name={viewItem} songs={songs} />,
+					artist: (
+						<SongList
+							listType="artist"
+							name={viewItem}
+							songs={songs}
+							handleBack={() => handleClick('playlists', '')}
+						/>
+					),
 					lyrics: <Lyrics name={viewItem} songs={songs} />,
 				}[view]
 			}
@@ -142,7 +154,6 @@ const SongList = (props) => {
 			})
 		data = <div>{entries}</div>
 	}
-	//TODO: Make this back button work
 	return (
 		<div>
 			<h2 className="BackButton" onClick={props.handleBack}>
