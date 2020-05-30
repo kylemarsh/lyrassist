@@ -14,10 +14,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "plugins": ["prettier", "react", "react-hooks"],
+    "plugins": [
+      "prettier",
+      "react",
+      "react-hooks"
+    ],
     "extends": [
       "react-app",
       "eslint:recommended",
@@ -28,11 +34,15 @@
       "prettier/prettier": "error",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-			"react/prop-types": [0]
+      "react/prop-types": [
+        0
+      ]
     },
     "overrides": [
       {
-        "files": ["**/*.ts?(x)"],
+        "files": [
+          "**/*.ts?(x)"
+        ],
         "rules": {
           "additional-typescript-only-rule": "warn"
         }
@@ -54,6 +64,8 @@
   "devDependencies": {
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "gh-pages": "^3.0.0",
     "prettier": "2.0.5"
-  }
+  },
+  "homepage": "http://kylemarsh.github.io/lyrassist"
 }
