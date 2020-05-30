@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/lyrassist/static/css/main.c4c2e09c.chunk.css",
-    "main.js": "/lyrassist/static/js/main.9262c5a5.chunk.js",
-    "main.js.map": "/lyrassist/static/js/main.9262c5a5.chunk.js.map",
+    "main.js": "/lyrassist/static/js/main.96751bb5.chunk.js",
+    "main.js.map": "/lyrassist/static/js/main.96751bb5.chunk.js.map",
     "runtime-main.js": "/lyrassist/static/js/runtime-main.fe7631aa.js",
     "runtime-main.js.map": "/lyrassist/static/js/runtime-main.fe7631aa.js.map",
     "static/js/2.2f02e183.chunk.js": "/lyrassist/static/js/2.2f02e183.chunk.js",
     "static/js/2.2f02e183.chunk.js.map": "/lyrassist/static/js/2.2f02e183.chunk.js.map",
     "index.html": "/lyrassist/index.html",
-    "precache-manifest.59c330879d938e563930da8fb4606385.js": "/lyrassist/precache-manifest.59c330879d938e563930da8fb4606385.js",
+    "precache-manifest.93b4ec9f5a37d662aa73608273ac2ffa.js": "/lyrassist/precache-manifest.93b4ec9f5a37d662aa73608273ac2ffa.js",
     "service-worker.js": "/lyrassist/service-worker.js",
     "static/css/main.c4c2e09c.chunk.css.map": "/lyrassist/static/css/main.c4c2e09c.chunk.css.map",
     "static/js/2.2f02e183.chunk.js.LICENSE.txt": "/lyrassist/static/js/2.2f02e183.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.fe7631aa.js",
     "static/js/2.2f02e183.chunk.js",
     "static/css/main.c4c2e09c.chunk.css",
-    "static/js/main.9262c5a5.chunk.js"
+    "static/js/main.96751bb5.chunk.js"
   ]
 }

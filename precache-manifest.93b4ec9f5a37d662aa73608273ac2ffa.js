@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ede91b89713dba3ea0d2fec8725842e8",
+    "revision": "e54fc1556e50e09318aac4452cab3f76",
     "url": "/lyrassist/index.html"
   },
   {
-    "revision": "98833198d0c042f81438",
+    "revision": "b32727c0be65f92b8c5e",
     "url": "/lyrassist/static/css/main.c4c2e09c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/lyrassist/static/js/2.2f02e183.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "98833198d0c042f81438",
-    "url": "/lyrassist/static/js/main.9262c5a5.chunk.js"
+    "revision": "b32727c0be65f92b8c5e",
+    "url": "/lyrassist/static/js/main.96751bb5.chunk.js"
   },
   {
     "revision": "2d4011ab12a62e56f13e",
